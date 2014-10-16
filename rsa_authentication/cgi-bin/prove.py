@@ -1,0 +1,51 @@
+#!/usr/bin/python2
+
+print "Content-type: text/html\n\n"
+
+import cgi
+import os
+from time import asctime
+
+def f(x, n):
+   return (x**2 + 3*x + 5) % n
+
+def modularExp(a, b, n):
+   res = 1
+   pot = a % n
+   while b > 0:
+      if b % 2 == 1:
+         res = (res * pot) % n
+      b >>= 1
+      pot = (pot * pot) % n
+   return res
+
+fields = cgi.FieldStorage()
+if fields.has_key("s"):
+   username = fields["username"].value
+   x = int(fields["x"].value)
+   s = int(fields["s"].value)
+   e = int(fields["e"].value)
+   n = int(fields["n"].value)
+   fx = f(x, n)
+   fc = modularExp(s, e, n)
+   if fx == fc:
+      print "The s is correct this is the user %s"%username
+      print """
+      <h3>Hi %s</h3>
+      """%username
+      f = open("users/"+username+"/logins.dat", 'r+')
+      if f.readline() != '':
+         f.seek(0)
+         print "<br>The last time you logged in was", f.readline()
+      else:
+         print "<br>This is the first time you log in"
+      f.seek(0)
+      f.write(asctime())
+      f.close
+   else:
+      print "Incorrect s. This is not the user. fx != fc"
+else:
+   print """
+   Enter s : signed f(x)
+   <a href="login.py">Return</a>
+   """

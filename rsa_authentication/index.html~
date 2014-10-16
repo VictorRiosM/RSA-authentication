@@ -1,0 +1,20 @@
+<html>
+
+  <head>
+    <title>Register</title>
+  </head>
+
+  <body>
+    <h1>Register</h1>
+    <a href="rsa.py">Run this script to create keys.</a>
+    <form action="cgi-bin/register.py" name="reg" id="reg">
+      <br>Choose username: <input type="text" size="10" name="username" id="username" required>
+      <br><h3>Public Key</h3>
+      <br>Enter e: <input type="text" size="10" name="e" id="e" required>
+      <br>Enter n: <input type="text" size="10" name="n" id="n" required>
+      <br><input type="submit" value="Enviar"></button>
+    </form>
+    <br><a href="cgi-bin/login.py">Login</a>
+  </body>
+
+</html>
